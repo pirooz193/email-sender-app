@@ -1,0 +1,28 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: [ YOUR EMAIL ]
+    password: [ PASSWORD ]
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  datasource:
+    url: [ YOUR DATABASE ADDRESS ]
+    username: [ YOUR DATABASE USERNAME ]
+    password: [ YOUR DATABASE PASSWORD ]
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+application:
+  error:
+    text:
+      action-failed: Action failed
