@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -20,7 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-@Service
+@Component
 public class EmailDetailsServiceImpl implements EmailDetailsService {
 
     private final JavaMailSender javaMailSender;
@@ -30,6 +30,8 @@ public class EmailDetailsServiceImpl implements EmailDetailsService {
 
     @Value("${spring.mail.username}")
     private String sender;
+    @Value("${application.file.saved-file-address}")
+    private String savedFileAddress;
 
     public EmailDetailsServiceImpl(JavaMailSender javaMailSender, EmailDetailsMapper emailDetailsMapper) {
         this.javaMailSender = javaMailSender;
@@ -78,7 +80,7 @@ public class EmailDetailsServiceImpl implements EmailDetailsService {
         mimeMessageHelper.setTo(details.getRecipient());
         mimeMessageHelper.setText(details.getBody());
         mimeMessageHelper.setSubject(details.getSubject());
-        File file = new File("src/main/java/com/selfproject/test.txt");
+        File file = new File(savedFileAddress);
         OutputStream os = new FileOutputStream(file);
         os.write(attachedFile.getBytes());
         os.close();
